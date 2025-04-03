@@ -170,7 +170,7 @@ export default function AIScreen() {
 
 const styles = StyleSheet.create({
   dropDownContainer: {
-    top: 320,
+    top: 325,
     position: "absolute",
     backgroundColor: "#fff",
     zIndex: 1,

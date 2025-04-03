@@ -1,31 +1,52 @@
 import CarouselSlider from "@/components/CarouselSlider";
 import { teamMembers } from "@/components/CarouselSliderData";
+import ChallengesFeatureCard from "@/components/ChallengesFeatureCard";
 import React, { useRef } from "react";
-import {
-  Animated,
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Dimensions, StyleSheet, Text, View } from "react-native";
 
 const { width } = Dimensions.get("window");
 
+const challenges = [
+  {
+    title: "Soil Degration and Erosion",
+    description:
+      "Intensive farming depletes soil nutrients, reducing long-term productivity.",
+    iconName: "trending-down",
+  },
+  {
+    title: "Pests & Crop Diseases",
+    description:
+      "Farmers lose billions due to pests and diseases, often relying on excessive pesticides.",
+    iconName: "alert-triangle",
+  },
+  {
+    title: "Biodiversity Loss & Pollinator Decline",
+    description:
+      "The decline of pollinators (like bees) and loss of crop diversity threaten global food security.",
+    iconName: "twitter",
+  },
+  {
+    title: "Carbon Footprint & Sustainable Practices",
+    description:
+      "Agriculture is currently a major contributor to greenhouse gas emissions.",
+    iconName: "cloud",
+  },
+  {
+    title: "Climate Change",
+    description:
+      "Unpredictable weather patterns, droughts, floods, and wildfires damage crops and reduce yields.",
+    iconName: "sun",
+  },
+  {
+    title: "Water Scarcity & Irrigation Efficiency",
+    description:
+      "Overuse of water and inefficient irrigation lead to shortages, increasing costs and reducing yields.",
+    iconName: "droplet",
+  },
+];
+
 export default function InfoScreen() {
   const scrollY = useRef(new Animated.Value(0)).current;
-
-  const renderCarouselItem = ({ item }: any) => (
-    <View style={styles.imageContainer}>
-      <Image
-        source={item.image}
-        style={styles.carouselImage}
-        resizeMode="cover"
-      />
-      <Text style={styles.memberName}>{item.name}</Text>
-      <Text style={styles.memberDescription}>{item.description}</Text>
-    </View>
-  );
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -57,11 +78,8 @@ export default function InfoScreen() {
             ]}
           >
             <Text style={styles.heroTitle}>
-              Addressing the{" "}
-              <Text style={{ color: "#4CAF50" }}>
-                Challenges{" "}
-                <Text style={{ color: "#000000" }}>Of Modern Agriculture </Text>
-              </Text>
+              Addressing the Challenges Of{" "}
+              <Text style={{ color: "#4CAF50" }}>Modern Agriculture </Text>
             </Text>
             <Text style={styles.heroSubtitle}>
               Agriculture today faces unprecedented challenges, from climate
@@ -70,6 +88,33 @@ export default function InfoScreen() {
             </Text>
             <Text style={styles.teamText}>Bridgeland Team #2002-2</Text>
           </Animated.View>
+        </View>
+        {/* Features Section */}
+        <View style={styles.featuresSection}>
+          <Text style={styles.featuresTitle}>
+            There are many{" "}
+            <Text style={[styles.featuresTitle, { color: "#ff0000" }]}>
+              Challenges{" "}
+              <Text style={[styles.featuresTitle, { color: "#000" }]}>
+                Facing Farmers Today
+              </Text>
+            </Text>
+          </Text>
+          <Text style={styles.featuresSubtitle}>
+            Everything you need to make informed agricultural decisions based on
+            data, not guesswork.
+          </Text>
+          <View style={styles.featuresGrid}>
+            {challenges.map((feature, index) => (
+              <View key={index} style={styles.featureItem}>
+                <ChallengesFeatureCard
+                  title={feature.title}
+                  description={feature.description}
+                  iconName={feature.iconName}
+                />
+              </View>
+            ))}
+          </View>
         </View>
         <View style={styles.meetTheTeamContainer}>
           <Text style={styles.meetTheTeamText}>Meet the Team!</Text>
@@ -188,5 +233,31 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 20,
     top: -50,
+  },
+  featuresSection: {
+    padding: 20,
+    backgroundColor: "#fff",
+    marginTop: -20,
+    paddingBottom: 75,
+  },
+  featuresTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  featuresSubtitle: {
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  featuresGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+  featureItem: {
+    width: "48%", // Each item takes ~half of the container width
+    marginBottom: 20, // Add spacing between rows
   },
 });

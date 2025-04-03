@@ -102,10 +102,16 @@ export default function HomeScreen() {
             </Text>
             <Text style={styles.teamText}>Bridgeland Team #2002-2</Text>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.buttonPrimary} onPress={() => router.replace("/(tabs)/AI")}>
+              <TouchableOpacity
+                style={styles.buttonPrimary}
+                onPress={() => router.replace("/(tabs)/AI")}
+              >
                 <Text style={styles.buttonPrimaryText}>Explore AI</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonOutline}>
+              <TouchableOpacity
+                style={styles.buttonOutline}
+                onPress={() => router.replace("/(tabs)/info")}
+              >
                 <Text style={styles.buttonOutlineText}>Learn More</Text>
               </TouchableOpacity>
             </View>
@@ -148,13 +154,23 @@ export default function HomeScreen() {
                   style={styles.buttonPrimary}
                   //onPress={() => setAuthModalOpen(true)}
                 >
-                  <Text style={styles.buttonPrimaryText}>Explore AI</Text>
+                  <Text
+                    style={styles.buttonPrimaryText}
+                    onPress={() => router.replace("/(tabs)/AI")}
+                  >
+                    Explore AI
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.buttonGreenOutline}
                   //onPress={() => navigation.navigate("Solutions")}
                 >
-                  <Text style={styles.buttonGreenOutlineText}>Learn More</Text>
+                  <Text
+                    style={styles.buttonGreenOutlineText}
+                    onPress={() => router.replace("/(tabs)/info")}
+                  >
+                    Learn More
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>

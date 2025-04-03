@@ -9,7 +9,7 @@ interface FeatureCardProps {
   delay?: number;
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({
+const ChallengesFeatureCard: React.FC<FeatureCardProps> = ({
   title,
   description,
   iconName,
@@ -37,7 +37,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       onTouchStart={handlePressIn}
       onTouchEnd={handlePressOut}
     >
-      <Icon name={iconName} size={32} color="#4CAF50" style={styles.icon} />
+      <Icon name={iconName} size={32} color="#ff0000" style={styles.icon} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
     </Animated.View>
@@ -75,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FeatureCard;
+export default ChallengesFeatureCard;
