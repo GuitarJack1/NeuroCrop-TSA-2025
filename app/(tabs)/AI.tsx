@@ -3,6 +3,7 @@ import { View } from "@/components/Themed";
 import { Ionicons } from "@expo/vector-icons";
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -80,9 +81,9 @@ export default function AIScreen() {
         [
           {
             resize: {
-              width: selectedText == "General AI Disease Detection" ? 800 : 224,
+              width: selectedText == "General AI Disease Detection" ? 224 : 800,
               height:
-                selectedText == "General AI Disease Detection" ? 400 : 224,
+                selectedText == "General AI Disease Detection" ? 224 : 600,
             },
           },
         ],
@@ -100,12 +101,64 @@ export default function AIScreen() {
 
         if (!base64data) {
           console.error("Failed to convert image to base64.");
+          setLoading(false);
           return;
         }
 
         // Send the request to the AI
+        if (selectedText == "General AI Disease Detection") {
+          //Send the request to AI
+          let AIResponse;
+          await fetch("http://172.20.10.2:5000/get-general-disease-AI", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              image: base64data, // your encoded image string
+            }),
+          })
+            .then((response) => response.json()) // Convert the response body to JSON
+            .then((data) => {
+              AIResponse = data;
+              console.log(data); // Now `data` contains the parsed JSON response
 
-        setLoading(false);
+              useRouter().push({
+                pathname: "/modal",
+                params: {
+                  extractedText: data,
+                },
+              });
+            });
+
+          setLoading(false);
+        } else {
+          //Send the request to AI
+          let AIResponse;
+          await fetch("http://172.20.10.2:5000/get-casava-AI", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              image: base64data, // your encoded image string
+            }),
+          })
+            .then((response) => response.json()) // Convert the response body to JSON
+            .then((data) => {
+              AIResponse = data;
+              console.log(data); // Now `data` contains the parsed JSON response
+
+              useRouter().push({
+                pathname: "/modal",
+                params: {
+                  outputDisease: data,
+                },
+              });
+            });
+
+          setLoading(false);
+        }
       };
     } catch (error) {
       console.error("Error extracting text from image:", error);
