@@ -1,8 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet } from "react-native";
-
 import { Text, View } from "@/components/Themed";
 import { useLocalSearchParams } from "expo-router";
+
+
+// Mapping of disease names to their info URLs
 
 const diseaseWebsites = {
   "Apple Healthy": "",
@@ -65,23 +67,27 @@ const diseaseWebsites = {
 };
 
 export default function ModalScreen() {
+  // Get the outputDisease parameter from the route
   let { outputDisease } = useLocalSearchParams<{ outputDisease?: string }>();
 
   return (
     <View style={styles.container}>
+      {/* Show "Disease:" unless the result is healthy */}
       <Text style={styles.title}>
         {outputDisease?.toLocaleLowerCase().includes("Healthy")
           ? ""
           : "Disease:"}
       </Text>
+      {/* Display the disease name */}
       <Text>{outputDisease}</Text>
       {/* <Text>{diseaseWebsites}</Text> */}
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      {/* Set status bar style based on platform */}
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
     </View>
-  );9
+  );
 }
 
+// Basic styling for the modal
 const styles = StyleSheet.create({
   container: {
     flex: 1,

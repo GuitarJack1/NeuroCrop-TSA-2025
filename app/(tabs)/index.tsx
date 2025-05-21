@@ -12,6 +12,7 @@ import FeatureCard from "@/components/FeatureCard";
 import { useRouter } from "expo-router";
 import Icon from "react-native-vector-icons/Feather";
 
+// List of feature cards to display on the homepage
 const features = [
   {
     title: "AI-Powered Recommendations",
@@ -54,10 +55,12 @@ const features = [
 export default function HomeScreen() {
   const router = useRouter();
 
+  // Animated value for parallax scroll effects
   const scrollY = useRef(new Animated.Value(0)).current;
 
   return (
     <View style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
+      {/* Main scrollable content */}
       <Animated.ScrollView
         style={{ flex: 1, backgroundColor: "#f2f2f2" }}
         scrollEventThrottle={16}
@@ -66,6 +69,7 @@ export default function HomeScreen() {
           { useNativeDriver: true }
         )}
       >
+        {/* Hero section with image, title, and buttons */}
         <View style={styles.heroContainer}>
           <Animated.Image
             source={{
@@ -102,12 +106,14 @@ export default function HomeScreen() {
             </Text>
             <Text style={styles.teamText}>Bridgeland Team #2002-2</Text>
             <View style={styles.buttonContainer}>
+              {/* Button to go to AI page */}
               <TouchableOpacity
                 style={styles.buttonPrimary}
                 onPress={() => router.replace("/(tabs)/AI")}
               >
                 <Text style={styles.buttonPrimaryText}>Explore AI</Text>
               </TouchableOpacity>
+              {/* Button to go to info page */}
               <TouchableOpacity
                 style={styles.buttonOutline}
                 onPress={() => router.replace("/(tabs)/info")}
@@ -128,6 +134,7 @@ export default function HomeScreen() {
             data, not guesswork.
           </Text>
           <View style={styles.featuresGrid}>
+            {/* Render each feature card */}
             {features.map((feature, index) => (
               <FeatureCard
                 key={index}
@@ -150,6 +157,7 @@ export default function HomeScreen() {
                 to optimize crop selection, resource usage, and yield potential.
               </Text>
               <View style={styles.ctaButtons}>
+                {/* CTA button to AI */}
                 <TouchableOpacity
                   style={styles.buttonPrimary}
                   //onPress={() => setAuthModalOpen(true)}
@@ -161,6 +169,7 @@ export default function HomeScreen() {
                     Explore AI
                   </Text>
                 </TouchableOpacity>
+                {/* CTA button to info */}
                 <TouchableOpacity
                   style={styles.buttonGreenOutline}
                   //onPress={() => navigation.navigate("Solutions")}
@@ -183,12 +192,14 @@ export default function HomeScreen() {
             />
           </View>
         </View>
+        {/* Spacer at the bottom */}
         <View style={{ height: 150 }} />
       </Animated.ScrollView>
     </View>
   );
 }
 
+// Styles for the homepage UI
 const styles = StyleSheet.create({
   heroContainer: {
     height: 500,

@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+// Main AI detection screen
 export default function AIScreen() {
   const [image, setImage] = useState<string | null>(null);
   let imageWidth: number;
@@ -22,6 +23,7 @@ export default function AIScreen() {
     "Select Detection Type"
   );
 
+  // Show image picker options
   const uploadImage = async () => {
     if (selectedText != "Select Detection Type") {
       Alert.alert("Upload Image", "Choose an option", [
@@ -34,6 +36,7 @@ export default function AIScreen() {
     }
   };
 
+  // Pick image from gallery
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
@@ -53,6 +56,7 @@ export default function AIScreen() {
     }
   };
 
+  // Take a photo using camera
   const takePhoto = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== "granted") {
@@ -72,6 +76,7 @@ export default function AIScreen() {
     }
   };
 
+  // Main AI detection logic
   const detectDiseasesWithAI = async (imageUri: string): Promise<void> => {
     setLoading(true);
     try {
@@ -90,7 +95,7 @@ export default function AIScreen() {
         { format: SaveFormat.JPEG }
       );
 
-      // Fetch and convert the resized image to base64
+      // Convert image to base64
       const response = await fetch(resizedImage.uri);
       const blob = await response.blob();
       const reader = new FileReader();
@@ -105,9 +110,9 @@ export default function AIScreen() {
           return;
         }
 
-        // Send the request to the AI
+        // Send the request to the AI backend
         if (selectedText == "General AI Disease Detection") {
-          //Send the request to AI
+          // General AI endpoint
           let AIResponse;
           await fetch("http://172.20.10.2:5000/get-general-disease-AI", {
             method: "POST",
@@ -118,10 +123,10 @@ export default function AIScreen() {
               image: base64data, // your encoded image string
             }),
           })
-            .then((response) => response.json()) // Convert the response body to JSON
+            .then((response) => response.json())
             .then((data) => {
               AIResponse = data;
-              console.log(data); // Now `data` contains the parsed JSON response
+              console.log(data);
 
               useRouter().push({
                 pathname: "/modal",
@@ -133,7 +138,7 @@ export default function AIScreen() {
 
           setLoading(false);
         } else {
-          //Send the request to AI
+          // Casava AI endpoint
           let AIResponse;
           await fetch("http://172.20.10.2:5000/get-casava-AI", {
             method: "POST",
@@ -141,13 +146,13 @@ export default function AIScreen() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              image: base64data, // your encoded image string
+              image: base64data,
             }),
           })
-            .then((response) => response.json()) // Convert the response body to JSON
+            .then((response) => response.json())
             .then((data) => {
               AIResponse = data;
-              console.log(data); // Now `data` contains the parsed JSON response
+              console.log(data);
 
               useRouter().push({
                 pathname: "/modal",
@@ -169,11 +174,13 @@ export default function AIScreen() {
   return (
     <View style={styles.overallContainer}>
       <View style={styles.container}>
+        {/* App icon */}
         <Image
           source={require("@/assets/images/tsa_agriculture_icon.png")}
           style={styles.topImage}
         />
 
+        {/* Detection type dropdown */}
         <View style={styles.dropDownContainer}>
           <AIDropdown
             onSelect={(selected: string) => {
@@ -190,6 +197,7 @@ export default function AIScreen() {
         </View>
 
         <Text style={styles.uploadTitle}>Upload Image</Text>
+        {/* Image upload box */}
         <TouchableOpacity style={styles.uploadBox} onPress={uploadImage}>
           {image ? (
             <Image source={{ uri: image }} style={styles.image} />
@@ -198,6 +206,7 @@ export default function AIScreen() {
           )}
         </TouchableOpacity>
 
+        {/* Detect button */}
         {image && (
           <TouchableOpacity
             style={styles.button}
@@ -221,6 +230,7 @@ export default function AIScreen() {
   );
 }
 
+// Styles for the screen
 const styles = StyleSheet.create({
   dropDownContainer: {
     top: 325,

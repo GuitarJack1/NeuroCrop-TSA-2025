@@ -6,6 +6,7 @@ import { Animated, Dimensions, StyleSheet, Text, View } from "react-native";
 
 const { width } = Dimensions.get("window");
 
+// List of agricultural challenges to display as feature cards
 const challenges = [
   {
     title: "Soil Degration and Erosion",
@@ -46,6 +47,7 @@ const challenges = [
 ];
 
 export default function InfoScreen() {
+  // Animated value for scroll position
   const scrollY = useRef(new Animated.Value(0)).current;
 
   return (
@@ -58,6 +60,7 @@ export default function InfoScreen() {
           { useNativeDriver: true }
         )}
       >
+        {/* Hero section with animated image and overlay */}
         <View style={styles.heroContainer}>
           <Animated.Image
             source={{
@@ -104,6 +107,7 @@ export default function InfoScreen() {
             Everything you need to make informed agricultural decisions based on
             data, not guesswork.
           </Text>
+          {/* Grid of challenge feature cards */}
           <View style={styles.featuresGrid}>
             {challenges.map((feature, index) => (
               <View key={index} style={styles.featureItem}>
@@ -116,18 +120,21 @@ export default function InfoScreen() {
             ))}
           </View>
         </View>
+        {/* Team Section */}
         <View style={styles.meetTheTeamContainer}>
           <Text style={styles.meetTheTeamText}>Meet the Team!</Text>
         </View>
         <View style={styles.carouselContainer}>
           <CarouselSlider itemList={teamMembers} />
         </View>
+        {/* Spacer at the bottom */}
         <View style={{ height: 150 }} />
       </Animated.ScrollView>
     </View>
   );
 }
 
+// Styles for the InfoScreen component
 const styles = StyleSheet.create({
   meetTheTeamContainer: {
     alignSelf: "center",
