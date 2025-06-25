@@ -1,8 +1,7 @@
-import { StatusBar } from "expo-status-bar";
-import { Platform, StyleSheet } from "react-native";
 import { Text, View } from "@/components/Themed";
 import { useLocalSearchParams } from "expo-router";
-
+import { StatusBar } from "expo-status-bar";
+import { Platform, StyleSheet } from "react-native";
 
 // Mapping of disease names to their info URLs
 
@@ -68,7 +67,9 @@ const diseaseWebsites = {
 
 export default function ModalScreen() {
   // Get the outputDisease parameter from the route
-  let { outputDisease } = useLocalSearchParams<{ outputDisease?: string }>();
+  let { outputDisease } = useLocalSearchParams<{ outputDisease: string }>();
+
+  //console.log(outputDisease);
 
   return (
     <View style={styles.container}>
@@ -79,7 +80,7 @@ export default function ModalScreen() {
           : "Disease:"}
       </Text>
       {/* Display the disease name */}
-      <Text>{outputDisease}</Text>
+      <Text style={{ color: "white" }}>{outputDisease}</Text>
       {/* <Text>{diseaseWebsites}</Text> */}
       {/* Set status bar style based on platform */}
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />

@@ -114,7 +114,7 @@ export default function AIScreen() {
         if (selectedText == "General AI Disease Detection") {
           // General AI endpoint
           let AIResponse;
-          await fetch("http://172.20.10.2:5000/get-general-disease-AI", {
+          await fetch("http://10.0.0.81:5000/get-general-disease-AI", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -126,12 +126,12 @@ export default function AIScreen() {
             .then((response) => response.json())
             .then((data) => {
               AIResponse = data;
-              console.log(data);
+              //console.log("Before modal: " + data);
 
               useRouter().push({
                 pathname: "/modal",
                 params: {
-                  extractedText: data,
+                  outputDisease: data,
                 },
               });
             });
@@ -140,7 +140,7 @@ export default function AIScreen() {
         } else {
           // Casava AI endpoint
           let AIResponse;
-          await fetch("http://172.20.10.2:5000/get-casava-AI", {
+          await fetch("http://10.0.0.81:5000/get-casava-AI", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -152,7 +152,7 @@ export default function AIScreen() {
             .then((response) => response.json())
             .then((data) => {
               AIResponse = data;
-              console.log(data);
+              //console.log("Before modal: " + data);
 
               useRouter().push({
                 pathname: "/modal",
