@@ -104,7 +104,7 @@ export default function HomeScreen() {
               decisions about what to plant, where to plant, and how to optimize
               resources.
             </Text>
-            <Text style={styles.teamText}>Bridgeland Team #2002-2</Text>
+            <Text style={styles.teamText}>Team #1602 - 1</Text>
             <View style={styles.buttonContainer}>
               {/* Button to go to AI page */}
               <TouchableOpacity
